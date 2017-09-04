@@ -22,6 +22,7 @@ import by.htp.webpr.domain.User;
 @RequestMapping("/user")
 public class CustomerProcessCommand {
 
+	
 	/*
 	 * @InitBinder public void initBinder(WebDataBinder dataBinder) {
 	 * 
@@ -45,7 +46,7 @@ public class CustomerProcessCommand {
 		Session session = factory.openSession();
 
 		try {
-			System.out.println("Creating new student object...");
+			//System.out.println("Creating new student object...");
 			User user= new User();
 
 			 session.beginTransaction();
@@ -64,5 +65,34 @@ public class CustomerProcessCommand {
 
 		return "main-page";
 	}
+		    
+		
+		
+	
+	@RequestMapping("/createUsers")
+	public String processAddUser(Model model) {
 
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
+				.buildSessionFactory();
+
+		Session session = factory.getCurrentSession();
+
+		try {
+			System.out.println("Creating new student object...");
+			User user= new User("Taiskinkaîîî","Virsha");
+
+			 session.beginTransaction();
+			 
+		     session.save(user);    
+			 List<User> result = session.createQuery("FROM User").list();
+		     
+			 session.getTransaction().commit();
+
+			 model.addAttribute("users", result);
+		
+		} finally {
+			factory.close();
+		}
+
+		return  "main-page";	}
 }
