@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +38,85 @@ public class CustomerProcessCommand {
 	 * 
 	 * return "customer-form"; }
 	 */
+	@RequestMapping("/showUserForm")
+	public String showForm(Model theModel) {
 
+		theModel.addAttribute("user", new User());
+
+		return "UserForm";
+	}
+
+	@RequestMapping("/processUserForm")
+	public String processForm1(@Valid @ModelAttribute("user") User theUser, BindingResult theBindingResult) {
+		
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
+				.buildSessionFactory();
+
+		Session session = factory.openSession();
+		
+		System.out.println("Last name: |" + theUser.getSurname() + "|");
+		
+		System.out.println("theBindingResult: " + theBindingResult);
+		
+		
+		try {
+			 session.beginTransaction();
+			 Query query = session.createQuery("from User where name = :paramName");
+			 query.setParameter("paramName", theUser.getName());
+			 List list = query.list();
+		     
+			 session.getTransaction().commit();
+			 
+		} finally {
+			factory.close();
+		}
+
+		if (theBindingResult.hasErrors()) {
+			return "UserForm";
+		} else {
+			return "main-page";
+		}
+	}
+
+	
+	@RequestMapping("/showRegistrationForm")
+	public String registration(Model theModel) {
+
+		theModel.addAttribute("user", new User());
+
+		return "registrationForm";
+	}
+
+	@RequestMapping("/registration")
+	public String registrationForm(@Valid @ModelAttribute("users") User theUser, BindingResult theBindingResult,Model model) {
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
+				.buildSessionFactory();
+
+		Session session = factory.openSession();
+
+		try {
+			 session.beginTransaction();
+			session.save(theUser);
+			int i=theUser.getId();
+		     List<User>user=session.createQuery("from User s where "+"s.id="+i).getResultList();
+			 session.getTransaction().commit();
+			 System.out.println(theUser.getId());
+			 model.addAttribute("users",user);
+		} finally {
+			factory.close();
+		}
+
+	
+
+
+		if (theBindingResult.hasErrors()) {
+			return "registrationForm";
+		} else {
+			return "main";
+		}
+	}
+
+	
 	@RequestMapping("/readUsers")
 	public String processForm(Model model) {
 
@@ -84,11 +164,11 @@ public class CustomerProcessCommand {
 			 session.beginTransaction();
 			 
 		     session.save(user);    
-			 List<User> result = session.createQuery("FROM User").list();
+			 List<User>users = session.createQuery("FROM User s where s.name='Natasha15'").getResultList();
 		     
 			 session.getTransaction().commit();
 
-			 model.addAttribute("users", result);
+			 model.addAttribute("users", users);
 		
 		} finally {
 			factory.close();
