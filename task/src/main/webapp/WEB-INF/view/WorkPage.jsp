@@ -10,8 +10,12 @@
 <body>
 	Available users:
 	<br>
+	<br>
 	<c:forEach items="${users}" var="user">
 		<c:out value="${user.login }" />
+		<br>
+		<br>
+		
 	</c:forEach>
 </body>
 </html>

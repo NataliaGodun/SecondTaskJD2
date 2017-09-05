@@ -37,6 +37,10 @@
 		<input type="submit" value="Registration" />
 
 	</form:form>
+	
+
+	
+	
 
 </body>
 
