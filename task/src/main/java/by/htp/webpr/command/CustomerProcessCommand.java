@@ -39,34 +39,33 @@ public class CustomerProcessCommand {
 	}
 
 	@RequestMapping("/processUserForm")
-	public String processForm1(@Valid @ModelAttribute("user") User theUser, BindingResult theBindingResult,Model model) {
+	public String processForm1(@Valid @ModelAttribute("user") User theUser, BindingResult theBindingResult,
+			Model model) {
 
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
 				.buildSessionFactory();
 
 		Session session = factory.openSession();
-
-		//System.out.println("password: |" + theUser.getSurname() + "|");
-
-		System.out.println("theBindingResult: " + theBindingResult);
-
-		try {
-			session.beginTransaction();
-			Query query = session.createQuery("from User where login = :paramName");
-			query.setParameter("paramName", theUser.getLogin());
-			List list = query.list();
-
-			session.getTransaction().commit();
-			model.addAttribute("user", list);
-
-		} finally {
-			factory.close();
-		}
-
+		
 		if (theBindingResult.hasErrors()) {
 			return "UserForm";
 		} else {
-			return "main-page";
+	
+			try {
+				session.beginTransaction();
+				Query query = session.createQuery("from User where login = :paramName");
+				query.setParameter("paramName", theUser.getLogin());
+				List list = query.list();
+
+				session.getTransaction().commit();
+				model.addAttribute("user", list);
+
+			} finally {
+				factory.close();
+			}
+
+		
+			return "main";
 		}
 	}
 
@@ -82,30 +81,27 @@ public class CustomerProcessCommand {
 	public String registrationForm(@Valid @ModelAttribute("user") User theUser, BindingResult theBindingResult,
 			Model model) {
 
-		
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
+				.buildSessionFactory();
 
-			SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
-					.buildSessionFactory();
+		Session session = factory.openSession();
 
-			Session session = factory.openSession();
+		if (theBindingResult.hasErrors()) {
+			System.out.println(theBindingResult);
+			return "registrationForm";
+		} else {
+			try {
+				session.beginTransaction();
+				session.save(theUser);
+				int i = theUser.getId();
+				List<User> user = session.createQuery("from User s where " + "s.id=" + i).getResultList();
 
-			
-			if (theBindingResult.hasErrors()) {
-				System.out.println(theBindingResult);
-				return "registrationForm";
-			} else {
-				try {
-					session.beginTransaction();
-					session.save(theUser);
-					int i = theUser.getId();
-					List<User> user = session.createQuery("from User s where " + "s.id=" + i).getResultList();
+				session.getTransaction().commit();
 
-					session.getTransaction().commit();
-
-					model.addAttribute("user", user);
-				} finally {
-					factory.close();
-				}
+				model.addAttribute("user", user);
+			} finally {
+				factory.close();
+			}
 			return "main";
 		}
 	}
@@ -128,7 +124,7 @@ public class CustomerProcessCommand {
 
 			session.getTransaction().commit();
 
-		//	System.out.println("-----" + result.get(0).getName());
+			// System.out.println("-----" + result.get(0).getName());
 
 			model.addAttribute("users", result);
 
@@ -136,7 +132,7 @@ public class CustomerProcessCommand {
 			factory.close();
 		}
 
-		return "main-page";
+		return "main";
 	}
 
 	@RequestMapping("/createUsers")
@@ -164,6 +160,6 @@ public class CustomerProcessCommand {
 			factory.close();
 		}
 
-		return "main-page";
+		return "main";
 	}
 }

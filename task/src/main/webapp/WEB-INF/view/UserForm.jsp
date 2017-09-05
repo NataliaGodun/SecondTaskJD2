@@ -24,9 +24,6 @@
 		<form:errors path="password" cssClass="error" />
 		<br>
 		<br>
-		<br>
-		<br>
-
 		<input type="submit" value="Submit" />
 
 	</form:form>
