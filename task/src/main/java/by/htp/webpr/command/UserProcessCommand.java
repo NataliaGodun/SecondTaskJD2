@@ -21,7 +21,7 @@ import by.htp.webpr.domain.User;
 
 @Controller
 @RequestMapping("/user")
-public class CustomerProcessCommand {
+public class UserProcessCommand {
 
 	@InitBinder
 	public void initBinder(WebDataBinder dataBinder) {
@@ -115,7 +115,7 @@ public class CustomerProcessCommand {
 		Session session = factory.openSession();
 
 		try {
-			// System.out.println("Creating new student object...");
+			 System.out.println("Creating new student object...");
 			User user = new User();
 
 			session.beginTransaction();
@@ -124,7 +124,7 @@ public class CustomerProcessCommand {
 
 			session.getTransaction().commit();
 
-			// System.out.println("-----" + result.get(0).getName());
+			System.out.println("-----" + result.get(0).getLogin());
 
 			model.addAttribute("users", result);
 
@@ -132,34 +132,8 @@ public class CustomerProcessCommand {
 			factory.close();
 		}
 
-		return "main";
+		return "WorkPage";
 	}
 
-	@RequestMapping("/createUsers")
-	public String processAddUser(Model model) {
-
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
-				.buildSessionFactory();
-
-		Session session = factory.getCurrentSession();
-
-		try {
-			System.out.println("Creating new student object...");
-			User user = new User("Taiskinkaîîî", "Virsha");
-
-			session.beginTransaction();
-
-			session.save(user);
-			List<User> users = session.createQuery("FROM User s where s.login='Natasha15'").getResultList();
-
-			session.getTransaction().commit();
-
-			model.addAttribute("users", users);
-
-		} finally {
-			factory.close();
-		}
-
-		return "main";
-	}
+	
 }

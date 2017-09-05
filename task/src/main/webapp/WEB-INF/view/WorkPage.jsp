@@ -8,19 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Welcom,
-	<c:forEach items="${user}" var="user">
+	Available users:
+	<br>
+	<c:forEach items="${users}" var="user">
 		<c:out value="${user.login }" />
 	</c:forEach>
-	!!!
-
-	<br>
-	<br>
-	<form:form action="readUsers" modelAttribute="user">
-
-
-		<input type="submit" value="Read users" />
-
-	</form:form>
 </body>
 </html>

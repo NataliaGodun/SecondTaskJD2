@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
@@ -13,10 +13,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form:form action="processUserForm" modelAttribute="user">
+	<form:form action="processUserForm" modelAttribute="user">
 	
 		Login: <form:input path="login" />
-        <form:errors path="login" cssClass="error" />
+		<form:errors path="login" cssClass="error" />
 		<br>
 		<br>
 		
@@ -29,13 +29,11 @@
 	</form:form>
 		<br>
 		<br>
-		
-		Or you want registration?
+	 Or you want registration?
 		<br>
 		<br>
-		<form:form action="showRegistrationForm" modelAttribute="user">
-	
-		
+	<form:form action="showRegistrationForm" modelAttribute="user">
+
 		<input type="submit" value="Registration" />
 
 	</form:form>
