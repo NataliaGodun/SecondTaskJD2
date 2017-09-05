@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -17,9 +19,13 @@ public class User {
 	private int id;
 
 	@Column(name = "name")
+	@NotNull(message="is required")
+	@Size(min=1,message="is required")
 	private String name;
 
 	@Column(name = "surname")
+	@NotNull(message="is required")
+	@Size(min=1,message="is required")
 	private String surname;
 
 	public User() {

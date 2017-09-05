@@ -3,6 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
+<style>
+.error {
+	color: red
+}
+</style>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -17,11 +22,8 @@
 		
 		Password : <form:input path="surname" />
 		<form:errors path="surname" cssClass="error" />
-
 		<br>
 		<br>
-		
-		
 		<br>
 		<br>
 
