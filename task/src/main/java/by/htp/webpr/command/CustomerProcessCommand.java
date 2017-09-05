@@ -39,24 +39,25 @@ public class CustomerProcessCommand {
 	}
 
 	@RequestMapping("/processUserForm")
-	public String processForm1(@Valid @ModelAttribute("user") User theUser, BindingResult theBindingResult) {
+	public String processForm1(@Valid @ModelAttribute("user") User theUser, BindingResult theBindingResult,Model model) {
 
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
 				.buildSessionFactory();
 
 		Session session = factory.openSession();
 
-		System.out.println("Last name: |" + theUser.getSurname() + "|");
+		//System.out.println("password: |" + theUser.getSurname() + "|");
 
 		System.out.println("theBindingResult: " + theBindingResult);
 
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery("from User where name = :paramName");
-			query.setParameter("paramName", theUser.getName());
+			Query query = session.createQuery("from User where login = :paramName");
+			query.setParameter("paramName", theUser.getLogin());
 			List list = query.list();
 
 			session.getTransaction().commit();
+			model.addAttribute("user", list);
 
 		} finally {
 			factory.close();
@@ -127,7 +128,7 @@ public class CustomerProcessCommand {
 
 			session.getTransaction().commit();
 
-			System.out.println("-----" + result.get(0).getName());
+		//	System.out.println("-----" + result.get(0).getName());
 
 			model.addAttribute("users", result);
 
@@ -153,7 +154,7 @@ public class CustomerProcessCommand {
 			session.beginTransaction();
 
 			session.save(user);
-			List<User> users = session.createQuery("FROM User s where s.name='Natasha15'").getResultList();
+			List<User> users = session.createQuery("FROM User s where s.login='Natasha15'").getResultList();
 
 			session.getTransaction().commit();
 

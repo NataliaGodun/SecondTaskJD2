@@ -18,23 +18,23 @@ public class User {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "name")
+	@Column(name = "login")
 	@NotNull(message="is required")
 	@Size(min=1,message="is required")
-	private String name;
+	private String login;
 
-	@Column(name = "surname")
+	@Column(name = "password")
 	@NotNull(message="is required")
 	@Size(min=1,message="is required")
-	private String surname;
+	private String password;
 
 	public User() {
 
 	}
 
 	public User(String name, String surname) {
-		this.name = name;
-		this.surname = surname;
+		this.login = name;
+		this. password = surname;
 	}
 
 	public int getId() {
@@ -45,25 +45,25 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLogin(String name) {
+		this.login = name;
 	}
 
-	public String getSurname() {
-		return surname;
+	public String getPassword() {
+		return  password;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setPassword(String surname) {
+		this. password = surname;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", surname=" + surname + "]";
+		return "User [id=" + id + ", name=" + login + ", surname=" +  password + "]";
 	}
 
 }

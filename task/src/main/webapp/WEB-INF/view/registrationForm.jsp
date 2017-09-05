@@ -20,13 +20,13 @@
 	<br>
 	<form:form action="registration" modelAttribute="user">
 	
-		Login: <form:input path="name" />
-		<form:errors path="name" cssClass="error" />
+		Login: <form:input path="login" />
+		<form:errors path="login" cssClass="error" />
 		<br>
 		<br>
 		
-		Password : <form:input path="surname" />
-		<form:errors path="surname" cssClass="error" />
+		Password : <form:input path="password" />
+		<form:errors path="password" cssClass="error" />
 		<br>
 		<br>
 		<br>
