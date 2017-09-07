@@ -179,5 +179,68 @@ public class UserProcessCommand {
 		return "redirect:/user/readUsers";
 	}
 
-	
+	@RequestMapping("/showFormForUpdate")
+	public String showFormUpdate(@RequestParam("userId")int theId, Model theModel) {
+
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
+				.buildSessionFactory();
+
+		Session session = factory.openSession();
+
+		try {
+			 System.out.println("update student object...");
+			
+
+			session.beginTransaction();
+			
+			
+			User user =(User)session.createQuery("FROM User where id="+theId).list().get(0);
+			
+			theModel.addAttribute("user", user);
+			
+			session.getTransaction().commit();
+
+			System.out.println(user.getId());
+
+		} finally {
+			factory.close();
+		}
+
+		return "DataForm";
+	}
+	@RequestMapping("/update")
+	public String processUpdate(@Valid @ModelAttribute("user") User theUser, BindingResult theBindingResult,
+			Model TheModel,@RequestParam ("id") int theId) {
+
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
+				.buildSessionFactory();
+
+		Session session = factory.openSession();
+
+		if (theBindingResult.hasErrors()) {
+			System.out.println(theBindingResult);
+			return "DataForm";
+		} else {
+			try {
+				session.beginTransaction();
+			//	System.out.println(theUser.getId());
+			//	System.out.println(theUser.getLogin());
+			//	System.out.println(theUser.getPassword());
+				session.update(theUser);
+				session.getTransaction().commit();
+				/*int i = theUser.getId();
+				List<User> user = session.createQuery("from User s where " + "s.id=" + i).getResultList();
+
+				session.getTransaction().commit();
+
+				model.addAttribute("user", user);*/
+				System.out.println("update proshel...");
+				
+			} finally {
+				factory.close();
+			}
+			return "redirect:/user/readUsers";
+		}
+	}
+
 }
