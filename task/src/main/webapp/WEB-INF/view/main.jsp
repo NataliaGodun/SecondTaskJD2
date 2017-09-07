@@ -10,9 +10,9 @@
 </head>
 <body>
 	Welcom,
-	<c:forEach items="${user}" var="user">
-		<c:out value="${user.login }" />
-	</c:forEach>
+
+		${user.login }
+
 	!!!
 
 	<br>
