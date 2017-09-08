@@ -8,8 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:forEach items="${user}" var="user">
-	<c:out value="${user.login }"/>
-	</c:forEach>
+	error
 </body>
 </html>

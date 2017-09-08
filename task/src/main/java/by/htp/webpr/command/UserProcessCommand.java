@@ -52,34 +52,26 @@ public class UserProcessCommand {
 		String page=null;
 		if (theBindingResult.hasErrors()) {
 			page="UserForm";
-			//return "UserForm";
+			
 		} else {
 	
 			try {
-				
-				
-	           
-				
-				
 				session.beginTransaction();
-				System.out.println(theUser.getLogin());
-				//User user=(User) session.createQuery("from User where login = :paramName and password=:paramPassword").list().get(0);
-				Query query  = session.createQuery("from User where login = :paramName and password=:paramPassword");
-				query.setParameter("paramName", theUser.getLogin());
-				query.setParameter("paramPassword", theUser.getPassword());
-				List list = query.list();
+				
+				User user=(User) session.createQuery("from User where login ="+theUser.getLogin()+" and password="+theUser.getPassword()).list().get(0);
 
 				session.getTransaction().commit();
-				System.out.println(list);
-				if (list.isEmpty()) page ="UserForm";
-				else page= "1";
-				model.addAttribute("user", list);
+				
+				model.addAttribute("user", user);
+				page ="main";
+			}catch(Exception e){
+				//log
+				 page= "error";
+				
 
 			} finally {
 				factory.close();
 			}
-
-		
 			
 		}
 		return page;
@@ -110,12 +102,7 @@ public class UserProcessCommand {
 				session.beginTransaction();
 				session.save(theUser);
 				session.getTransaction().commit();
-				/*int i = theUser.getId();
-				List<User> user = session.createQuery("from User s where " + "s.id=" + i).getResultList();
-
-				session.getTransaction().commit();
-
-				model.addAttribute("user", user);*/
+				
 			} finally {
 				factory.close();
 			}
@@ -132,7 +119,7 @@ public class UserProcessCommand {
 		Session session = factory.openSession();
 
 		try {
-			 System.out.println("Creating new student object...");
+		
 			User user = new User();
 
 			session.beginTransaction();
@@ -140,8 +127,6 @@ public class UserProcessCommand {
 			List<User> result = session.createQuery("FROM User").list();
 
 			session.getTransaction().commit();
-
-			System.out.println("-----" + result.get(0).getLogin());
 
 			model.addAttribute("users", result);
 
@@ -223,18 +208,9 @@ public class UserProcessCommand {
 		} else {
 			try {
 				session.beginTransaction();
-			//	System.out.println(theUser.getId());
-			//	System.out.println(theUser.getLogin());
-			//	System.out.println(theUser.getPassword());
 				session.update(theUser);
 				session.getTransaction().commit();
-				/*int i = theUser.getId();
-				List<User> user = session.createQuery("from User s where " + "s.id=" + i).getResultList();
-
-				session.getTransaction().commit();
-
-				model.addAttribute("user", user);*/
-				System.out.println("update proshel...");
+			
 				
 			} finally {
 				factory.close();
