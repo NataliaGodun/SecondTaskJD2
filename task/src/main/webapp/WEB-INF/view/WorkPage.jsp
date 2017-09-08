@@ -15,20 +15,17 @@
 	<c:forEach items="${users}" var="user">
 		<c:out value="${user.login }" />
 		<br>
-
-		
 		<c:url var="deleteLink" value="/user/delete">
 			<c:param name="userId" value="${user.id }"/>
 		</c:url>
 		<c:url var="updateLink" value="/user/showFormForUpdate">
 			<c:param name="userId" value="${user.id }"/>
 		</c:url>
-		<br>
-		<a href="${ deleteLink}">Delete</a>
-		<a href="${ updateLink}">Update</a>
-	
-		<br>
 		
+		<a href="${ deleteLink}" onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">Delete</a>
+		<a href="${ updateLink}">Update</a>
+        <br>
+        <br>
 	</c:forEach>
 </body>
 </html>

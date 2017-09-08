@@ -31,7 +31,7 @@
 		<br>
 		<br>
 
-		<input type="submit" value="Submit" />
+		<input type="submit" value="Update" onclick="if (!(confirm('Are you sure you want to update this user?'))) return false" />
 
 	</form:form>
 </body>
