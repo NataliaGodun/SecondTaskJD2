@@ -20,7 +20,7 @@
 		<br>
 		<br>
 		
-		Password : <form:input path="password" />
+		Password : <form:input type="password" path="password" />
 		<form:errors path="password" cssClass="error" />
 		<br>
 		<br>

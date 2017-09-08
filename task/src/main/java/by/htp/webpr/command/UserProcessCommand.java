@@ -49,7 +49,9 @@ public class UserProcessCommand {
 				.buildSessionFactory();
 
 		Session session = factory.openSession();
+		
 		String page=null;
+		User user=null;
 		if (theBindingResult.hasErrors()) {
 			page="UserForm";
 			
@@ -58,14 +60,16 @@ public class UserProcessCommand {
 			try {
 				session.beginTransaction();
 				
-				User user=(User) session.createQuery("from User where login ="+theUser.getLogin()+" and password="+theUser.getPassword()).list().get(0);
-
+				user=(User) session.createQuery("from User where login ="+theUser.getLogin()+" and password="+theUser.getPassword()).list().get(0);
+				
 				session.getTransaction().commit();
 				
 				model.addAttribute("user", user);
+				
 				page ="main";
+				
 			}catch(Exception e){
-				//log
+				//log wrong login or password
 				 page= "error";
 				
 
@@ -95,8 +99,9 @@ public class UserProcessCommand {
 		Session session = factory.openSession();
 
 		if (theBindingResult.hasErrors()) {
-			System.out.println(theBindingResult);
+			
 			return "registrationForm";
+			
 		} else {
 			try {
 				session.beginTransaction();
@@ -173,11 +178,8 @@ public class UserProcessCommand {
 		Session session = factory.openSession();
 
 		try {
-			 System.out.println("update student object...");
-			
-
+			 
 			session.beginTransaction();
-			
 			
 			User user =(User)session.createQuery("FROM User where id="+theId).list().get(0);
 			
@@ -185,7 +187,6 @@ public class UserProcessCommand {
 			
 			session.getTransaction().commit();
 
-			System.out.println(user.getId());
 
 		} finally {
 			factory.close();
