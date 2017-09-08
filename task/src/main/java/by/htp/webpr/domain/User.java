@@ -66,9 +66,9 @@ public class User {
 
 	}
 
-	public User(String name, String surname) {
-		this.login = name;
-		this. password = surname;
+	public User(String login, String password) {
+		this.login = login;
+		this. password = password;
 	}
 
 	public int getId() {
@@ -83,16 +83,16 @@ public class User {
 		return login;
 	}
 
-	public void setLogin(String name) {
-		this.login = name;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public String getPassword() {
 		return  password;
 	}
 
-	public void setPassword(String surname) {
-		this. password = surname;
+	public void setPassword(String password) {
+		this. password = password;
 	}
 
 	@Override
