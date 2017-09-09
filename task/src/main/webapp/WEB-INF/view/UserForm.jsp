@@ -12,6 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
+<img src="${pageContext.request.contextPath }/resources/images/welcome.jpg"/>
 <body>
 	<form:form action="processUserForm" modelAttribute="user">
 	
