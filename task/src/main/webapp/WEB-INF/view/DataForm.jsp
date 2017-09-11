@@ -29,6 +29,8 @@
 		<form:errors path="password" cssClass="error" />
 		<br>
 		<br>
+		Email: <form:input path="email" />
+		<br>
 		<br>
 
 		<input type="submit" value="Update" onclick="if (!(confirm('Are you sure you want to update this user?'))) return false" />

@@ -29,6 +29,10 @@
 		<form:errors path="password" cssClass="error" />
 		<br>
 		<br>
+		Email : <form:input   path="email" />
+		
+		<br>
+		<br>
 		<br>
 
 		<input type="submit" value="Submit" />

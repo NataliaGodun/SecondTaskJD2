@@ -11,7 +11,7 @@
 	href="<c:url value="/resources/css/style.css"/>" />
 </head>
 <body>
-	Available users:
+	
 
 	<br>
 	<div id="wrapper">
@@ -27,6 +27,7 @@
 			<table>
 				<tr>
 					<th>Login</th>
+					<th>Email</th>
 					<th>Action</th>
 				</tr>
 
@@ -43,11 +44,11 @@
 
 					<tr>
 						<td>${user.login}</td>
-
+						<td>${user.email}</td>
 						<td>
 							<!-- display the update link --> <a href="${updateLink}">Update</a>
 							| <a href="${deleteLink}"
-							onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
+							onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">Delete</a>
 						</td>
 
 					</tr>
