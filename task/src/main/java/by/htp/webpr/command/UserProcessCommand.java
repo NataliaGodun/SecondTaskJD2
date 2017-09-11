@@ -60,7 +60,7 @@ public class UserProcessCommand {
 			try {
 				session.beginTransaction();
 				
-				user=(User) session.createQuery("from User where login ="+theUser.getLogin()+" and password="+theUser.getPassword()).list().get(0);
+				user=(User) session.createQuery("from User where login = "+theUser.getLogin()+" and password="+theUser.getPassword()).list().get(0);
 				
 				session.getTransaction().commit();
 				
