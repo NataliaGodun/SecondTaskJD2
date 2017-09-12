@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -69,6 +70,7 @@ public class User {
 	private String password;
 
 	@Column(name = "email")
+	@Pattern(regexp=".*@.*",message="nead realy email")
 	private String email;
 	
 	public String getEmail() {

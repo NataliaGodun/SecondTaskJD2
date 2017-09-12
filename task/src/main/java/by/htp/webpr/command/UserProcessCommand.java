@@ -97,6 +97,7 @@ public class UserProcessCommand {
 				.buildSessionFactory();
 
 		Session session = factory.openSession();
+		System.out.println("theBindingResult: "+theBindingResult);
 
 		if (theBindingResult.hasErrors()) {
 			

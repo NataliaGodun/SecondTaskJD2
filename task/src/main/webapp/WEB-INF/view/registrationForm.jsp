@@ -30,7 +30,7 @@
 		<br>
 		<br>
 		Email : <form:input   path="email" />
-		
+		<form:errors path="email" cssClass="error" />
 		<br>
 		<br>
 		<br>
